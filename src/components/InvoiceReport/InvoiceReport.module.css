@@ -1,0 +1,31 @@
+.container {
+  border: 2px solid black;
+  width: 35%;
+  margin: auto;
+  margin-top: 2rem;
+  height: 12rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  font-weight: bold;
+  border-radius: 12px;
+  box-shadow: 0.5rem 0.5rem black;
+}
+.container .date {
+  text-align: center;
+}
+label {
+  margin-right: 0.5rem;
+}
+.email {
+  display: flex;
+  justify-content: space-around;
+}
+button {
+  width: 7rem;
+  margin-left: 40%;
+  color: white;
+  background-color: rgb(107, 5, 107);
+  height: 2rem;
+  border: none;
+}
