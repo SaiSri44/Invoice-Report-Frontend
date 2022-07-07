@@ -525,7 +525,7 @@ export default function FormPropsTextFields() {
                 placeholder="Who is this invoice from (required)"
                 style={{ width: 425, fontSize: 19, padding: '5px', borderRadius: '5px', background: '#fafafa' }}
               />
-            </div>
+            </div> 
             <div style={{ float: "left", marginRight: "15px", marginTop: '30px', marginBottom: '30px' }}>
               <TextareaAutosize
                 required
