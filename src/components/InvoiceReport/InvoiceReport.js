@@ -4,7 +4,8 @@ import Card from "../../components/historyCard";
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import axios from "axios";
-
+import TextField from '@mui/material/TextField';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
     gridContainer: {
@@ -20,13 +21,17 @@ const useStyles = makeStyles((theme) => ({
 
 var currDate = new Date();
 var currYear = currDate.getFullYear();
-console.log(currYear);
 var prevMonth = currDate.getMonth();
-console.log(prevMonth);
-if (prevMonth < 0) {
+if (prevMonth === 0) {
     currYear = currYear - 1;
     prevMonth = 12;
 }
+prevMonth = prevMonth.toString();
+if (Number(prevMonth) < 10)
+    prevMonth = '0' + prevMonth;
+currYear = currYear.toString();
+var defYear = currYear;
+var defMonth = prevMonth;
 
 const Months = {
     "Jan": '01',
@@ -45,7 +50,7 @@ const Months = {
 const InvoiceReport = () => {
     const [toEmail, setToEmail] = useState('');
     const [ccEmails, setccEmails] = useState('');
-    const [date, setDate] = useState('');
+    const [date, setDate] = useState(`${currYear}-${prevMonth}`);
     const [data, setData] = useState([]);
     const classes = useStyles();
 
@@ -58,12 +63,12 @@ const InvoiceReport = () => {
         };
         fetchData();
     }, []);
-    const filteredData = data.filter(data => { return Number(data.date.split(" ")[3]) === currYear && Number(Months[data.date.split(" ")[1]]) === prevMonth })
+    const filteredData = data.filter(data => { return data.date.split(" ")[3] === currYear && Months[data.date.split(" ")[1]] === prevMonth })
 
     const dateChangeHandler = (event) => {
         var selectedDate = event.target.value;
-        currYear = Number(selectedDate.split('-')[0]);
-        prevMonth = Number(selectedDate.split('-')[1]);
+        currYear = selectedDate.split('-')[0];
+        prevMonth = selectedDate.split('-')[1];
         setDate(selectedDate);
     }
     const toChangeHandler = (event) => {
@@ -74,40 +79,34 @@ const InvoiceReport = () => {
     }
     const onSubmitHandler = (event) => {
         event.preventDefault();
-        var currentDate = new Date();
-        currYear = currentDate.getFullYear();
-        prevMonth = currentDate.getMonth();
-        if (prevMonth < 0) {
-            currYear = currYear - 1;
-            prevMonth = 12;
-        }
         setToEmail('');
         setccEmails('');
-        setDate('')
+        currYear = defYear;
+        prevMonth = defMonth;
+        setDate(`${currYear}-${prevMonth}`);
     }
     return (
         <Fragment>
             <form className={styles["container"]} onSubmit={onSubmitHandler}  >
                 <div className={styles["date"]} >
-                    <label>Date :</label>
-                    <input type="month" required onChange={dateChangeHandler} value={date}></input>
+                    <TextField label="Date" type="month" required
+                        InputLabelProps={{ shrink: true }} value={date} onChange={dateChangeHandler}></TextField>
                 </div>
                 <div className={styles["email"]}>
                     <div >
-                        <label>To :</label>
-                        <input type="email" placeholder="Receivers Email"
-                            onChange={toChangeHandler} value={toEmail} required></input>
+                        <TextField label="To" type="email" placeholder="Receivers Email"
+                            onChange={toChangeHandler} value={toEmail} required ></TextField>
                     </div>
                     <div >
-                        <label>CC :</label>
-                        <input type="email" multiple
+                        <TextField label="CC" type="email" multiple
                             onChange={ccChangeHandler} value={ccEmails}
-                            placeholder="Add , seperated emails"></input>
+                            placeholder="Add , seperated emails" ></TextField>
                     </div>
                 </div>
-                <button type="sumbit">Send Invoices</button>
+                <Button variant="contained" type="sumbit" color="primary" style={{ width: '10rem', height: '3rem', marginLeft: '38%' }}>Send Invoices</Button>
+
             </form>
-            {filteredData.length === 0 && <h2>There is no Invoices for {date.split('-')[1]} {date.split('-')[0]} </h2>}
+            {filteredData.length === 0 && <h2>There is no Invoices for {prevMonth} {currYear}  </h2>}
 
             {filteredData.length !== 0 && <Grid container spacing={1} className={classes.gridContainer}>
                 {filteredData.map((historyData, index) => {
@@ -123,5 +122,7 @@ const InvoiceReport = () => {
     )
 }
 export default InvoiceReport;
-
-
+/*Bugs
+1.Cannot able to add mulitple email address to textfield
+2.When moved to other page and come again the previous data is displaying
+ */

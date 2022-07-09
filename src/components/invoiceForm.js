@@ -124,7 +124,7 @@ function getStyles(name, personName, theme) {
 
 export default function FormPropsTextFields() {
   const token = localStorage.getItem('token');
-  const config = { headers: { Authorization: `Bearer ${token}` }};
+  const config = { headers: { Authorization: `Bearer ${token}` } };
   const classes = useStyles();
   const theme = useTheme();
   const [inputAdornment, setInputAdornment] = React.useState('₹')
@@ -147,7 +147,7 @@ export default function FormPropsTextFields() {
   const [open, setOpen] = React.useState(false);
   const [invoiceHistory, setInvoiceHistory] = React.useState([]);
   const [invoiceNumber, setInvoiceNumber] = React.useState(0);
-  const currency=[{id:'Rupee',value:'₹'},{id:'USD',value:'$'},{id:'GBP',value:'£'}]
+  const currency = [{ id: 'Rupee', value: '₹' }, { id: 'USD', value: '$' }, { id: 'GBP', value: '£' }]
 
   const [invoiceData, setInvoiceData] = React.useState({
     client: '',
@@ -191,12 +191,12 @@ export default function FormPropsTextFields() {
     }
 
   };
-  
+
   const fetchData = () => {
     setOpen(true);
-    axios.get(`${process.env.REACT_APP_API_URL}/admin/address`,config)
-    .then((res) => {
-      setInvoiceData({...invoiceData,bill_from:res.data.address })
+    axios.get(`${process.env.REACT_APP_API_URL}/admin/address`, config)
+      .then((res) => {
+        setInvoiceData({ ...invoiceData, bill_from: res.data.address })
       })
     axios.get(`${process.env.REACT_APP_API_URL}/client`)
       .then((res) => {
@@ -213,7 +213,7 @@ export default function FormPropsTextFields() {
     fetchData();
   }, []);// eslint-disable-line react-hooks/exhaustive-deps
 
- 
+
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -400,7 +400,7 @@ export default function FormPropsTextFields() {
       data.amount_paid = inputAdornment + amountPaid;
       data.balance_due = inputAdornment + balanceDue;
     }
-    if (tax !==0 && tax !== '') {
+    if (tax !== 0 && tax !== '') {
       if (taxType === 'flat') {
         data.tax = inputAdornment + tax;
       }
@@ -411,7 +411,7 @@ export default function FormPropsTextFields() {
     else {
       data.tax = ''
     }
-    if (discount!==0 && discount !== '') {
+    if (discount !== 0 && discount !== '') {
       if (discountType === 'flat') {
         data.discount = inputAdornment + discount;
       }
@@ -423,9 +423,9 @@ export default function FormPropsTextFields() {
       data.discount = ''
     }
     data.invoice_number = invoiceNumber;
-    
+
     setInvoiceData(data);
-    axios.post(`${process.env.REACT_APP_API_URL}/invoice`,invoiceData, { headers: { 'Content-Type': 'application/json' } })
+    axios.post(`${process.env.REACT_APP_API_URL}/invoice`, invoiceData, { headers: { 'Content-Type': 'application/json' } })
       .then(function (response) {
         setOpenDownloader(false);
         const message = alert;
@@ -501,7 +501,7 @@ export default function FormPropsTextFields() {
             onChange={e => inputAdornmentChange(e)}
             input={<Input />}
             MenuProps={MenuProps}
-          >{currency.map(item=>(<MenuItem key={item.id} value={item.value}>{item.id}</MenuItem>))}
+          >{currency.map(item => (<MenuItem key={item.id} value={item.value}>{item.id}</MenuItem>))}
           </Select>
         </FormControl>
         <div className={classes.invoiceNumber}>
@@ -525,7 +525,7 @@ export default function FormPropsTextFields() {
                 placeholder="Who is this invoice from (required)"
                 style={{ width: 425, fontSize: 19, padding: '5px', borderRadius: '5px', background: '#fafafa' }}
               />
-            </div> 
+            </div>
             <div style={{ float: "left", marginRight: "15px", marginTop: '30px', marginBottom: '30px' }}>
               <TextareaAutosize
                 required
