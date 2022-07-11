@@ -5,7 +5,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Backdrop from '@material-ui/core/Backdrop';
 import axios from "axios";
-import { propTypes } from "react-bootstrap/esm/Image";
 
 const useStyles = makeStyles((theme) => ({
     gridContainer: {
@@ -55,4 +54,4 @@ export default function History() {
         </div>
 
     )
-}  
+} 

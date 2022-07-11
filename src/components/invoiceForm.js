@@ -424,7 +424,7 @@ export default function FormPropsTextFields() {
     }
     data.invoice_number = invoiceNumber;
 
-    setInvoiceData(data);
+    setInvoiceData(data); 
     axios.post(`${process.env.REACT_APP_API_URL}/invoice`, invoiceData, { headers: { 'Content-Type': 'application/json' } })
       .then(function (response) {
         setOpenDownloader(false);

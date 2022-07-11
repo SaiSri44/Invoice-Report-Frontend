@@ -56,9 +56,6 @@ function Alert(props) {
 }
 
 
-
-
-
 export default function FormPropsTextFields() {
   let { id } = useParams();
   const classes = useStyles();
@@ -69,7 +66,7 @@ export default function FormPropsTextFields() {
   const [openLoader, setOpenLoader] = React.useState(false);
 
   const fetchData = () => {
-    axios.get(`${process.env.REACT_APP_API_URL}/client/${id}`)
+    axios.get(`${process.env.REACT_APP_API_URL}/client/${id}`) 
       .then((response) => {
         setState({
           client_name: response.data.data.client_name,
@@ -117,7 +114,7 @@ export default function FormPropsTextFields() {
         setMessage(message);
         setOpen(true);
         setState({ client_name: "", billing_address: "", shipping_address: "", payment_terms: "", notes: "", terms: "", date_of_contract: String(new Date()) });
-      })
+      }) 
       .catch(error => {
         setOpenLoader(false);
         const message = alert;
@@ -171,7 +168,7 @@ export default function FormPropsTextFields() {
         setMessage(message);
         setOpen(true);
       })
-  }
+  } 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;

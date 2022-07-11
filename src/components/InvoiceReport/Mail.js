@@ -4,7 +4,7 @@ var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
         user: '2019med1003@iitrpr.ac.in',
-        pass: 'anuradha@99'
+        pass: 'Anuradha@99'
     }
 });
 
@@ -21,4 +21,4 @@ transporter.sendMail(mailOptions, function (error, info) {
     } else {
         console.log('Email sent: ' + info.response);
     }
-}); 
+});  

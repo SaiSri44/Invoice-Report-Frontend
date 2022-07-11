@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -59,9 +59,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function OutlinedCard(props) {
   const classes = useStyles();
-  const [data, setData] = useState(props.data);
-
-
   return (
     <Card className={classes.root} variant="outlined">
       <CardContent>
@@ -69,25 +66,25 @@ export default function OutlinedCard(props) {
           # {props.idx + 1}
         </Typography>
         <Typography className={classes.date} color="textSecondary" gutterBottom>
-          Date: {data.date.split("", 15)}
+          Date: {props.data.date.split("", 15)}
         </Typography>
         <Typography className={classes.date} color="textSecondary" gutterBottom>
-          Due Date: {data.due_date.split("", 15)}
+          Due Date: {props.data.due_date.split("", 15)}
         </Typography>
         <Typography className={classes.billTo}>
           Bill to:
         </Typography>
         <Typography className={classes.billToBody}>
-          {data.bill_to}
+          {props.data.bill_to}
         </Typography>
         <Typography className={classes.shipTo}>
           Ship to:
         </Typography>
         <Typography className={classes.billToBody}>
-          {data.ship_to}
+          {props.data.ship_to}
         </Typography>
         <Divider />
-        {data.items.map((item, idx) => {
+        {props.data.items.map((item, idx) => {
           return (
             <Typography variant="body2" component="p" className={classes.shipTo}>
               {idx + 1}. Item :{item.item}
@@ -101,32 +98,32 @@ export default function OutlinedCard(props) {
         })}
         <Divider />
         <Typography color="textSecondary" gutterBottom>
-          Notes: {data.notes}
+          Notes: {props.data.notes}
         </Typography>
         <Typography color="textSecondary" gutterBottom>
-          Terms & conditions: {data.terms}
+          Terms & conditions: {props.data.terms}
         </Typography>
         <Typography color="textSecondary" gutterBottom>
-          Payment terms: {data.payment_terms}
+          Payment terms: {props.data.payment_terms}
         </Typography>
         <Divider />
         <Typography color="textSecondary" gutterBottom>
-          subTotal: {data.sub_total}
+          subTotal: {props.data.sub_total}
         </Typography>
         <Typography color="textSecondary" gutterBottom>
-          Discount: {data.discount}
+          Discount: {props.data.discount}
         </Typography>
         <Typography color="textSecondary" gutterBottom>
-          Tax: {data.tax}
+          Tax: {props.data.tax}
         </Typography>
         <Typography color="textSecondary" gutterBottom>
-          Total: {data.total}
+          Total: {props.data.total}
         </Typography>
         <Typography color="textSecondary" gutterBottom>
-          Amount paid: {data.amount_paid}
+          Amount paid: {props.data.amount_paid}
         </Typography>
         <Typography color="primary" gutterBottom>
-          Balance due: {data.balance_due}
+          Balance due: {props.data.balance_due}
         </Typography>
 
 
@@ -141,4 +138,4 @@ export default function OutlinedCard(props) {
       </CardActions>
     </Card>
   );
-} 
+}  
