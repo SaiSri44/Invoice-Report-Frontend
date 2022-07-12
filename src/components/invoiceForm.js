@@ -409,7 +409,7 @@ export default function FormPropsTextFields() {
       }
     }
     else {
-      data.tax = ''
+      data.tax = '' 
     }
     if (discount !== 0 && discount !== '') {
       if (discountType === 'flat') {

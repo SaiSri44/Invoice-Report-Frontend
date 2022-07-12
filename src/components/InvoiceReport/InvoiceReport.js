@@ -70,29 +70,28 @@ const InvoiceReport = () => {
     }, []);
 
     const filteredData = data.filter(data => { return data.date.split(" ")[3] === currYear && Months[data.date.split(" ")[1]] === prevMonth })
-
+    let b64;
     const sendData = () => {
         const formInfo = {
             toEmail: toEmail,
             month: prevMonth,
             year: currYear,
+            invoiceData: filteredData,
         }
         /*fetch always returns a response, if reponse.ok is true then work is done sucessfully else not done
         always use the headers and body should be in json format */
-        fetch(`${process.env.REACT_APP_API_URL}/invoicereport`,
+        axios.post(`${process.env.REACT_APP_API_URL}/invoicereport`,
+            formInfo,
             {
-                method: 'POST',
                 headers:
                 {
                     'Content-type': 'application/json',
-                },
-                body: JSON.stringify(formInfo)
-            }).then(response => {
-                if (!response.ok)
-                    console.log('Send Unsucessful');
+                }
             }
-            ).catch(error => {
-                console.log('Send Unsuccesful');
+        )
+            .catch(error => {
+                if (error.response)
+                    console.log(error.response.data.status.message);
             })
     } 
 
@@ -129,7 +128,7 @@ const InvoiceReport = () => {
                             onChange={toChangeHandler} value={toEmail} required ></TextField>
                     </div>
                     <div >
-                        <TextField label="CC" type="email" multiple
+                        <TextField label="CC" multiple
                             onChange={ccChangeHandler} value={ccEmails}
                             placeholder="Add , seperated emails" ></TextField>
                     </div>
