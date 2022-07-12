@@ -72,9 +72,10 @@ const InvoiceReport = () => {
     const filteredData = data.filter(data => { return data.date.split(" ")[3] === currYear && Months[data.date.split(" ")[1]] === prevMonth })
 
     const sendData = () => {
-        console.log(toEmail);
         const formInfo = {
-            Email: toEmail
+            toEmail: toEmail,
+            month: prevMonth,
+            year: currYear,
         }
         /*fetch always returns a response, if reponse.ok is true then work is done sucessfully else not done
         always use the headers and body should be in json format */
@@ -90,8 +91,10 @@ const InvoiceReport = () => {
                 if (!response.ok)
                     console.log('Send Unsucessful');
             }
-            )
-    }
+            ).catch(error => {
+                console.log('Send Unsuccesful');
+            })
+    } 
 
     const dateChangeHandler = (event) => {
         var selectedDate = event.target.value;
